@@ -1,6 +1,5 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import Home from "../Screens/Home";
 import Comentario from "../Screens/Comentario";
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import AntDesign from '@expo/vector-icons/AntDesign';
@@ -8,7 +7,7 @@ import TabNavigator from './TabNavigator';
 
 const Tab = createBottomTabNavigator()
 
-export default function TabNavigator() {
+export default function Navegacion() {
     return (
         <Tab.Navigator screenOptions={{ tabBarShowLabel: false }}>
             <Tab.Screen
