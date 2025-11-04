@@ -11,14 +11,24 @@ export default class Login extends Component {
       error: ''
     }
   }
+  componentDidMount(){
+    auth.onAuthStateChanged(user => {
+      if(user != null) {
+       this.props.navigation.navigate('Navegacion')
+      }
+    })
+  }
   onSubmit(email,password){
+    console.log('Login')
     auth.signInWithEmailAndPassword(email,password)
     .then((user)=> {
       if(user){
-        this.props.navigation.navigate('Navegacion')
+       this.props.navigation.navigate('Navegacion')
+       console.log('todo ok')
       }
     })
     .catch(e => {
+      console.log(e)
       this.setState({error: e.message})
     })
   }

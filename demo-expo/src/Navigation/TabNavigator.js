@@ -1,6 +1,8 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import Navegacion from '../Navigation/Navegacion'
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import Home from '../Screens/Home'
 import Posteo from '../Screens/Posteo'
 import Perfil from '../Screens/Perfil'
 
@@ -10,14 +12,14 @@ export default function TabNavigator() {
     return (
         <Tab.Navigator screenOptions={{ tabBarShowLabel: false }}>
             <Tab.Screen
-                name="Navegacion"
-                component={Navegacion}
+                name="Home"
+                component={Home}
             />
             <Tab.Screen
                 name="Perfil"
                 component={Perfil}
                 options={{
-                    tabBarIcon: () => <FontAwesome5 name="home" size={24} color="black" />,
+                    tabBarIcon: () => <FontAwesome5 name="user" size={23} color="black" />,
                     headerShown: false
                 }
                 }
@@ -27,7 +29,7 @@ export default function TabNavigator() {
                 name="Posteo"
                 component={Posteo}
                 options={{
-                    tabBarIcon: () => <FontAwesome5 name="home" size={24} color="black" />,
+                    tabBarIcon: () => <Ionicons name="add-circle-outline" size={29} color="black" />,
                     headerShown: false
                 }
                 }
