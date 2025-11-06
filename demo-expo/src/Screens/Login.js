@@ -11,6 +11,7 @@ export default class Login extends Component {
       error: ''
     }
   }
+
   componentDidMount(){
     auth.onAuthStateChanged(user => {
       if(user != null) {
@@ -18,6 +19,7 @@ export default class Login extends Component {
       }
     })
   }
+
   onSubmit(email,password){
     console.log('Login')
     auth.signInWithEmailAndPassword(email,password)
