@@ -13,19 +13,15 @@ export default class NuevoPost extends Component {
     }
 
     submit() {
-        const fecha = new Date()
-        const hora = fecha.getHours()
-        const horaFormateada = `${hora}`
-        console.log(horaFormateada)
-
         return db.collection('posts').add({
             owner: auth.currentUser.email,
-            createdAt: horaFormateada,
+            createdAt: new Date(),
             posteo: this.state.posteo,
             likes: this.state.likes
         })
 
-            .then(() => this.props.navigation.navigate('Navegacion', { screen: 'Comentario' }))
+            .then((item) => { this.props.navigation.navigate('Comentario', { postId: item.id });
+        })
 
             .catch(err => console.log(err));
     }

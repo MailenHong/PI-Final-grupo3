@@ -7,67 +7,78 @@ export default class Comentario extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      postsRecuperados: [],
+      postRecuperado: null,
       commentsRecuperados: [],
       comentario: ''
-    }
+    };
   }
 
   submit() {
-    return db.collection('comments').add({
+    const { postId } = this.props.route.params;
+    db.collection('comments').add({
       owner: auth.currentUser.email,
-      createdAt: Date.now(),
+      createdAt: new Date(),
       comentario: this.state.comentario,
+      postId: postId,
     })
 
-      .then(() => this.props.navigation.navigate('Navegacion', { screen: 'Comentario' }))
-
+      .then(() => {
+        this.setState({ comentario: '' });
+        this.props.navigation.navigate('Comentario', { postId });
+      })
       .catch(err => console.log(err));
   }
 
   componentDidMount() {
-    db.collection('posts').onSnapshot(docs => {
-      let postsDocs = []
-      docs.forEach(doc => {
-        postsDocs.push({
-          id: doc.id,
-          data: doc.data()
+    const { postId } = this.props.route.params;
+
+    db.collection('posts')
+      .doc(postId)
+      .onSnapshot(doc => {
+        this.setState({
+          postRecuperado: {
+            id: doc.id,
+            data: doc.data()
+          }
         })
       })
-      this.setState({ postsRecuperados: postsDocs })
-      console.log(postsDocs) // para ver si llegan los datos
-    })
-    db.collection('comments').onSnapshot(docs => {
-      let commentsDocs = []
-      docs.forEach(doc => {
-        commentsDocs.push({
-          id: doc.id,
-          data: doc.data()
+
+    db.collection('comments')
+      .where('postId', '==', postId)
+      .orderBy('createdAt', 'asc')
+      .onSnapshot(docs => {
+        let commentsDocs = []
+        docs.forEach(doc => {
+          commentsDocs.push({
+            id: doc.id,
+            data: doc.data()
+          })
         })
+        this.setState({ commentsRecuperados: commentsDocs })
       })
-      this.setState({ commentsRecuperados: commentsDocs })
-      console.log(commentsDocs) // para ver si llegan los datos
-    })
+
   }
   render() {
+    const { postRecuperado } = this.state;
     return (
       <View style={styles.contenedor}>
         <Text style={styles.titulo}> Comentarios </Text>
-        <FlatList
-          data={this.state.postsRecuperados}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <View style={styles.datosRecuperados}>
-              <Text style={{ fontSize: 17, color: 'gray' }}>{item.data.username} posteo hoy a las {item.data.createdAt}hs</Text>
-              <Text style={{ fontSize: 18 }}>{item.data.posteo}</Text>
-            </View>
-          )} />
+        {postRecuperado ? (
+          <View style={styles.datosRecuperados}>
+            <Text style={{ fontSize: 17, color: 'gray' }}>
+              {postRecuperado.data.owner} posteó hoy a las ...
+            </Text>
+            <Text style={{ fontSize: 18 }}>{postRecuperado.data.posteo}</Text>
+          </View>
+        ) : (
+          <Text>Cargando post...</Text>
+        )}
         <FlatList
           data={this.state.commentsRecuperados}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <View style={styles.datosRecuperados}>
-              <Text style={{ fontSize: 17, color: 'gray' }}>{item.data.username}</Text>
+              <Text style={{ fontSize: 17, color: 'gray' }}>{item.data.owner}</Text>
               <Text style={{ fontSize: 18 }}>{item.data.comentario}</Text>
             </View>
           )} />
