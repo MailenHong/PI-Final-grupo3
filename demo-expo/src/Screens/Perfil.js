@@ -106,6 +106,7 @@ const styles = StyleSheet.create({
 
   sectionTitle: { marginTop: 16, fontSize: 18, fontWeight: '700' },
 
+
   listContent: { paddingVertical: 8 },
   postCard: { padding: 12, borderRadius: 12, borderWidth: 1, borderColor: '#eee', marginBottom: 10 },
   postText: { fontSize: 15, lineHeight: 20 },
