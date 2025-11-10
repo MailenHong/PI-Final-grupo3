@@ -8,7 +8,8 @@ export default class NuevoPost extends Component {
         super(props)
         this.state = {
             posteo: '',
-            likes: ''
+            likes: '',
+            coments: []
         }
     }
 
@@ -17,7 +18,8 @@ export default class NuevoPost extends Component {
             owner: auth.currentUser.email,
             createdAt: new Date(),
             posteo: this.state.posteo,
-            likes: this.state.likes
+            likes: this.state.likes, 
+            comentarios: this.state.coments
         })
 
             .then((item) => { this.props.navigation.navigate('Comentario', { postId: item.id });

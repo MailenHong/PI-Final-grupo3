@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Text, View, Pressable, FlatList, StyleSheet } from 'react-native'
+import Post from '../Component/Post'
 import { auth, db } from '../firebase/config'
+
 
 export default class Perfil extends Component {
   constructor(props) {
@@ -80,7 +82,8 @@ export default class Perfil extends Component {
             data={this.state.misPosteos}
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => (
-              <View><Text> {item.data?.texto || JSON.stringify(item.data)}</Text> </View>
+             // <View><Text> {item.data?.texto || JSON.stringify(item.data)}</Text> </View>
+             <Post data = {item.data} id= {item.id} navigation = {this.props.navigation}/>
             )}
           >
 
