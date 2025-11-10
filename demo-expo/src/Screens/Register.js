@@ -48,7 +48,7 @@ export default class Register extends Component {
         placeholder = 'email' onChangeText = {(texto)=> this.setState({email: texto})} value= {this.state.email}></TextInput>
         <TextInput 
         style= {styles.input}
-        placeholder = 'contraseña' onChangeText = {(texto)=> this.setState({password: texto})} value= {this.state.password}></TextInput>
+        placeholder = 'contraseña' secureTextEntry={true} onChangeText = {(texto)=> this.setState({password: texto})} value= {this.state.password}></TextInput>
         <TextInput 
         style = {styles.input}
         placeholder = 'usuario' onChangeText = {(texto)=> this.setState({username: texto})} value= {this.state.username}></TextInput>

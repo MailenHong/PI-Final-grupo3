@@ -2,6 +2,7 @@ import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import AntDesign from '@expo/vector-icons/AntDesign';
 import Home from '../Screens/Home'
 import Posteo from '../Screens/Posteo'
 import Perfil from '../Screens/Perfil'
@@ -14,6 +15,12 @@ export default function TabNavigator() {
             <Tab.Screen
                 name="Home"
                 component={Navegacion}
+                 options={{
+                    tabBarIcon: () => <AntDesign name="home" size={24} color="black" />,
+                    headerShown: false
+                }
+                }
+                
             />
             <Tab.Screen
                 name="Perfil"
