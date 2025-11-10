@@ -14,7 +14,7 @@ export default class Perfil extends Component {
   }
   componentDidMount() {
     console.log(auth.currentUser)
-    db.collection('users').where('owner', '==', auth.currentUser.email)
+    db.collection('users').where('email', '==', auth.currentUser.email)
       .onSnapshot(data => {
         data.forEach(doc => {
           this.setState({
@@ -22,9 +22,7 @@ export default class Perfil extends Component {
             loadingUsuario: false
           })
         })
-        if (data.empty) {
-          this.setState({ loadingUsuario: false })
-        }
+        
       })
 
 
@@ -66,7 +64,7 @@ export default class Perfil extends Component {
           <Text style = {styles.title}> Mi perfil </Text>
           <View style = {styles.info} >
 
-          <Text style = {styles.infoEmail}> Email: {this.state.usuario.owner}</Text>
+          <Text style = {styles.infoEmail}> Email: {this.state.usuario.email}</Text>
           </View>
           <View style = {styles.info}>
          <Text style = {styles.infoEmail}> Usuario: {this.state.usuario.username}</Text>
@@ -94,7 +92,9 @@ export default class Perfil extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#fff', padding: 16 },
+  container: { 
+    flex: 1, 
+    backgroundColor: '#fff', padding: 16 },
   loading: { flex: 1, alignItems: 'center', justifyContent: 'center' },
   title: { fontSize: 22, fontWeight: '700', marginBottom: 8 },
   info: { marginTop: 6 },
