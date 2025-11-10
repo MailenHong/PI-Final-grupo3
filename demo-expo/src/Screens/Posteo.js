@@ -9,7 +9,6 @@ export default class NuevoPost extends Component {
         this.state = {
             posteo: '',
             likes: '',
-            coments: []
         }
     }
 
@@ -19,7 +18,7 @@ export default class NuevoPost extends Component {
             createdAt: new Date(),
             posteo: this.state.posteo,
             likes: this.state.likes, 
-            comentarios: this.state.coments
+            comentarios: []
         })
 
             .then((item) => { this.props.navigation.navigate('Comentario', { postId: item.id });

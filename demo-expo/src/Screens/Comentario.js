@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, Pressable, StyleSheet, TextInput, FlatList } from 'react-native'
 import { db, auth } from '../firebase/config'
+import firebase from 'firebase'
 
 
 export default class Comentario extends Component {
@@ -15,18 +16,24 @@ export default class Comentario extends Component {
 
   submit() {
     const { postId } = this.props.route.params;
-    db.collection('comments').add({
-      owner: auth.currentUser.email,
-      createdAt: new Date(),
-      comentario: this.state.comentario,
-      postId: postId,
-    })
 
+
+    db.collection('posts').doc(postId).update({
+      comentarios: firebase.firestore.FieldValue.arrayUnion({
+        createdAt: new Date(),
+        owner: auth.currentUser.email,
+        comentario: this.state.comentario
+      })
+
+    })
       .then(() => {
         this.setState({ comentario: '' });
         // this.props.navigation.navigate('Comentario', { postId });
       })
       .catch(err => console.log(err));
+
+
+
   }
 
   componentDidMount() {
@@ -42,21 +49,7 @@ export default class Comentario extends Component {
             id: doc.id,
             data: doc.data()
           }
-        })
-      })
-
-    db.collection('comments')
-      .where('postId', '==', postId)
-      .orderBy('createdAt', 'asc')
-      .onSnapshot(docs => {
-        let commentsDocs = []
-        docs.forEach(doc => {
-          commentsDocs.push({
-            id: doc.id,
-            data: doc.data()
-          })
-        })
-        this.setState({ commentsRecuperados: commentsDocs })
+        }, () => console.log(this.state.postRecuperado))
       })
 
   }
@@ -76,15 +69,23 @@ export default class Comentario extends Component {
         ) : (
           <Text>Cargando post...</Text>
         )}
-        <FlatList
-          data={this.state.commentsRecuperados}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <View style={styles.datosRecuperados}>
-              <Text style={{ fontSize: 17, color: 'gray' }}>{item.data.owner}</Text>
-              <Text style={{ fontSize: 18 }}>{item.data.comentario}</Text>
-            </View>
-          )} />
+
+        {postRecuperado ? (
+          <FlatList
+            data={postRecuperado.data.comentarios}
+            keyExtractor={(item) => item.createdAt + item.owner}
+            renderItem={({ item }) => (
+              <View style={styles.datosRecuperados}>
+                <Text style={{ fontSize: 17, color: 'gray' }}>{item.owner}</Text>
+                <Text style={{ fontSize: 18 }}>{item.comentario}</Text>
+              </View>
+            )} />
+        ) : (
+          <Text>Cargando post...</Text>
+        )}
+
+
+
 
         <TextInput
           style={styles.input}
