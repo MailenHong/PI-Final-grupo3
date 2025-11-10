@@ -58,7 +58,7 @@ export default class Post extends Component {
     render() {
         return (
             <View style={styles.datosRecuperados}>
-                <Text>Hola</Text>
+                
                 <Text style={styles.owner}>@{this.props.data.owner}</Text>
                 <Text style={styles.posteo}>{this.props.data.posteo}</Text>
 
