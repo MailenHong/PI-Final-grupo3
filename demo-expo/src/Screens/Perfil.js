@@ -123,18 +123,14 @@ const styles = StyleSheet.create({
     borderRadius: 20,  
     marginTop: 24
   },
-
   sectionTitle: {
-    textAlign: 'center',
-    alignSelf: 'center', 
-    marginTop: 40,
-    marginBottom: 10,
-    fontSize: 20,
-    fontWeight: '700',
-    alignSelf: 'flex-start',
-    marginLeft: 30,
-  },
-
+  fontSize: 20,
+  fontWeight: '700',
+  color: '#333',
+  marginTop: 40, // 🔹 espacio extra debajo del botón
+  marginBottom: 20,
+  textAlign: 'center', // centrado como "Mi perfil"
+},
 
   listContent: { paddingVertical: 8 },
   postCard: {
