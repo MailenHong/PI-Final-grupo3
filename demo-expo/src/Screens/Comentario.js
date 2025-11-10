@@ -24,13 +24,15 @@ export default class Comentario extends Component {
 
       .then(() => {
         this.setState({ comentario: '' });
-        this.props.navigation.navigate('Comentario', { postId });
+        // this.props.navigation.navigate('Comentario', { postId });
       })
       .catch(err => console.log(err));
   }
 
   componentDidMount() {
     const { postId } = this.props.route.params;
+
+    console.log('post id desde componentDidMount', postId)
 
     db.collection('posts')
       .doc(postId)
@@ -58,6 +60,7 @@ export default class Comentario extends Component {
       })
 
   }
+
   render() {
     const { postRecuperado } = this.state;
     return (

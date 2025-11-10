@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Text, View, FlatList, Pressable, ActivityIndicator, Alert, StyleSheet,} from 'react-native';
+import { Text, View, FlatList, Pressable, ActivityIndicator, Alert, StyleSheet, } from 'react-native';
 import { auth, db } from '../firebase/config';
 import firebase from 'firebase';
+import Post from '../Component/Post';
 
 export default class Home extends Component {
   constructor(props) {
@@ -87,6 +88,8 @@ export default class Home extends Component {
   render() {
     const { posteos, loading } = this.state;
 
+    console.log(posteos)
+
     if (loading) {
       return (
         <View style={styles.center}>
@@ -103,29 +106,13 @@ export default class Home extends Component {
           data={posteos}
           keyExtractor={(item) => item.id}
           contentContainerStyle={styles.lista}
-          renderItem={({ item }) => {
-            const datos = item.data;
-            const likes = Array.isArray(datos.likes) ? datos.likes : [];
-            const correo = auth.currentUser?.email || '';
-            const yaLeGusta = likes.includes(correo);
-
-            return (
-              <View style={styles.datosRecuperados}>
-                <Text style={styles.owner}>@{datos.owner}</Text>
-                <Text style={styles.posteo}>{datos.posteo}</Text>
-
-                <Pressable onPress={() => this.tocarLike(item)}>
-                  <Text style={styles.irA}>
-                    {yaLeGusta ? 'Quitar me gusta' : 'Me gusta'} ({likes.length || 0})
-                  </Text>
-                </Pressable>
-
-                <Pressable onPress={() => this.tocarComentar(item)}>
-                  <Text style={styles.irA}>Comentar</Text>
-                </Pressable>
-              </View>
-            );
-          }}
+          renderItem={({ item }) =>
+            <Post
+              data={item.data}
+              id={item.id}
+              navigation={this.props.navigation}
+            />
+          }
         />
       </View>
     );
@@ -147,6 +134,7 @@ const styles = StyleSheet.create({
   },
   lista: {
     paddingBottom: 24,
+    flex: 1,
   },
   datosRecuperados: {
     width: '100%',

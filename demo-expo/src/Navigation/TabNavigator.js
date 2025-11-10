@@ -5,7 +5,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import Home from '../Screens/Home'
 import Posteo from '../Screens/Posteo'
 import Perfil from '../Screens/Perfil'
-
+import Navegacion from './Navegacion';
 const Tab = createBottomTabNavigator()
 
 export default function TabNavigator() {
@@ -13,7 +13,7 @@ export default function TabNavigator() {
         <Tab.Navigator screenOptions={{ tabBarShowLabel: false }}>
             <Tab.Screen
                 name="Home"
-                component={Home}
+                component={Navegacion}
             />
             <Tab.Screen
                 name="Perfil"
