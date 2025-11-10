@@ -24,7 +24,7 @@ export default class Perfil extends Component {
             loadingUsuario: false
           })
         })
-        
+
       })
 
 
@@ -62,28 +62,28 @@ export default class Perfil extends Component {
           <Text> Cargando... </Text>
         </View> :
 
-        <View style = {styles.container}>
-          <Text style = {styles.title}> Mi perfil </Text>
-          <View style = {styles.info} >
+        <View style={styles.contenedor}>
+          <Text style={styles.titulo}> Mi perfil </Text>
+          <View style={styles.info} >
 
-          <Text style = {styles.infoEmail}> Email: {this.state.usuario.email}</Text>
+            <Text style={styles.infoEmail}> Email: {this.state.usuario.email}</Text>
           </View>
-          <View style = {styles.info}>
-         <Text style = {styles.infoEmail}> Usuario: {this.state.usuario.username}</Text>
-         </View>
+          <View style={styles.info}>
+            <Text style={styles.infoEmail}> Usuario: {this.state.usuario.username}</Text>
+          </View>
 
-          <Pressable style = {styles.button} onPress={() => this.logout()}>
-            <Text style = {styles.buttonText}> Cerrar Sesión </Text>
+          <Pressable style={styles.buttonText} onPress={() => this.logout()}>
+            <Text style={styles.irA}> Cerrar Sesión </Text>
           </Pressable>
-          
-          <Text style = {styles.sectionTitle}> Mis posteos: </Text>
-          
+
+          <Text style={styles.sectionTitle}> Mis posteos: </Text>
+
           <FlatList
             data={this.state.misPosteos}
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => (
-             // <View><Text> {item.data?.texto || JSON.stringify(item.data)}</Text> </View>
-             <Post data = {item.data} id= {item.id} navigation = {this.props.navigation}/>
+              // <View><Text> {item.data?.texto || JSON.stringify(item.data)}</Text> </View>
+              <Post data={item.data} id={item.id} navigation={this.props.navigation} />
             )}
           >
 
@@ -95,23 +95,57 @@ export default class Perfil extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1, 
-    backgroundColor: '#fff', padding: 16 },
+  contenedor: {
+    flex: 1,
+    alignItems: 'center',
+    paddingTop: 40,
+  },
+  irA: {
+    fontSize: 17,
+    fontWeight: '600',
+  },
   loading: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-  title: { fontSize: 22, fontWeight: '700', marginBottom: 8 },
-  info: { marginTop: 6 },
-  infoEmail: { fontSize: 12, color: '#666' },
+  info: { marginTop: 6, alignItems: 'center' },
+  infoEmail: {
+    fontSize: 16,
+    color: '#6A6767',
+    marginBottom: 2, 
+  },
   infoValue: { fontSize: 16, fontWeight: '500' },
 
-  button: { marginTop: 12, backgroundColor: '#1f2937', paddingVertical: 12, borderRadius: 12, alignItems: 'center' },
-  buttonText: { color: '#fff', fontWeight: '600' },
+  buttonText: {
+    width: '30%',
+    alignItems: 'center',
+    marginTop: 16, 
+    backgroundColor: '#f0dfd7ff', 
+    paddingVertical: 10,
+    paddingHorizontal: 24,
+    borderRadius: 20,  
+    marginTop: 24
+  },
 
-  sectionTitle: { marginTop: 16, fontSize: 18, fontWeight: '700' },
+  sectionTitle: {
+    textAlign: 'center',
+    alignSelf: 'center', 
+    marginTop: 40,
+    marginBottom: 10,
+    fontSize: 20,
+    fontWeight: '700',
+    alignSelf: 'flex-start',
+    marginLeft: 30,
+  },
 
 
   listContent: { paddingVertical: 8 },
-  postCard: { padding: 12, borderRadius: 12, borderWidth: 1, borderColor: '#eee', marginBottom: 10 },
+  postCard: {
+    width: '90%',
+    alignSelf: 'center', padding: 16, borderRadius: 20, borderWidth: 1, borderColor: '#eee', marginBottom: 10
+  },
   postText: { fontSize: 15, lineHeight: 20 },
   emptyList: { textAlign: 'center', color: '#999', marginTop: 20 },
+  titulo: {
+    fontSize: 30,
+    fontWeight: '700',
+    margin: 10,
+  },
 });

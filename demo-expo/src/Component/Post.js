@@ -82,19 +82,20 @@ const styles = StyleSheet.create({
     },
     datosRecuperados: {
         flex: 1,
-        width: '100%',
+        width: '50%',
         marginVertical: 6,
         paddingVertical: 12,
         paddingHorizontal: 16,
-        borderBottomWidth: 1,
         borderColor: '#e0e0e0',
-        backgroundColor: '#fff',
+        backgroundColor: '#ffffff',
+        borderRadius: 18,
+        alignSelf: 'center',
     },
     owner: {
         fontSize: 15,
-        color: '#555',
-        fontWeight: '500',
-        marginBottom: 4,
+        color: '#E97140',
+        fontWeight: '700',
+        marginBottom: 6,
     },
     posteo: {
         fontSize: 17,
@@ -104,8 +105,8 @@ const styles = StyleSheet.create({
     irA: {
         fontSize: 15,
         fontWeight: '600',
-        color: '#007bff',
-        marginTop: 4,
+        color: '#ED8E63',
+        marginTop: 6,
     },
     center: {
         flex: 1,

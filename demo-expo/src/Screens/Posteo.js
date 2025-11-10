@@ -21,7 +21,7 @@ export default class NuevoPost extends Component {
             comentarios: []
         })
 
-            .then((item) => { this.props.navigation.navigate('Comentario', { postId: item.id });
+            .then((item) => { this.setState({ posteo: '' }), this.props.navigation.navigate('Comentario', { postId: item.id });
         })
 
             .catch(err => console.log(err));
@@ -53,8 +53,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 14,
         fontSize: 16,
         borderRadius: 10,
-        width: '50%',
-        backgroundColor: '#ece2e2ff',
+        width: '40%',
+        backgroundColor: '#a9b8b24d',
 
     },
     titulo: {
