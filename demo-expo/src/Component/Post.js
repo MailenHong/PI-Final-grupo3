@@ -62,7 +62,7 @@ export default class Post extends Component {
                 <Text style={styles.owner}>@{this.props.data.owner}</Text>
                 <Text style={styles.posteo}>{this.props.data.posteo}</Text>
 
-                <Pressable onPress={() => this.tocarLike(this.props.data)}>
+                <Pressable onPress={() => this.tocarLike({id: this.props.id, data: this.props.data})}>
                     <Text style={styles.irA}>
                         {this.state.yaLeGusta ? 'Quitar me gusta' : 'Me gusta'} ({this.props.data.likes.length || 0})
                     </Text>
