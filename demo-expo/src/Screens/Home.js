@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, FlatList, Pressable, ActivityIndicator, Alert, StyleSheet, } from 'react-native';
+import { Text, View, FlatList, ActivityIndicator, Alert, StyleSheet, } from 'react-native';
 import { auth, db } from '../firebase/config';
 import firebase from 'firebase';
 import Post from '../Component/Post';
@@ -38,55 +38,15 @@ export default class Home extends Component {
           this.setState({ posteos: posts, loading: false });
         },
         (error) => {
-          Alert.alert('Error al cargar posteos', error.message);
+          console.log('Error al cargar posteos', error.message);
           this.setState({ loading: false });
         }
       );
   }
 
-  tocarLike = (item) => {
-    const correo = auth.currentUser?.email;
-    if (!correo) return;
-
-    const datos = item.data;
-    const likes = Array.isArray(datos.likes) ? datos.likes : [];
-    const yaLeGusta = likes.includes(correo);
-
-    console.log('Like clickeado. Ya le gusta?', yaLeGusta);
-
-    if (yaLeGusta) {
-      this.quitarLike(item, correo);
-    } else {
-      this.darLike(item, correo);
-    }
-  };
-
-  darLike(post, correo) {
-    db.collection('posts')
-      .doc(post.id)
-      .update({
-        likes: firebase.firestore.FieldValue.arrayUnion(correo),
-      })
-      .then(() => console.log('Likeado'))
-      .catch((error) => console.log('Error al dar like:', error));
-  }
-
-  quitarLike(post, correo) {
-    db.collection('posts')
-      .doc(post.id)
-      .update({
-        likes: firebase.firestore.FieldValue.arrayRemove(correo),
-      })
-      .then(() => console.log('Dislikeado'))
-      .catch((error) => console.log('Error al quitar like:', error));
-  }
-
-  tocarComentar = (item) => {
-    this.props.navigation.navigate('Comentario', { postId: item.id });
-  };
-
   render() {
-    const { posteos, loading } = this.state;
+    const posteos = this.state.posteos;
+    const loading = this.state.loading;
 
     console.log(posteos)
 
@@ -122,49 +82,16 @@ export default class Home extends Component {
 const styles = StyleSheet.create({
   contenedor: {
     flex: 1,
-    backgroundColor: '#f2f2f2',
-    paddingTop: 24,
-  },
-  titulo: {
-    fontSize: 28,
-    fontWeight: '700',
-    textAlign: 'center',
-    marginBottom: 10,
-    color: '#222',
-  },
-  lista: {
-    paddingBottom: 24,
-    flex: 1,
-  },
-  datosRecuperados: {
-    width: '100%',
-    marginVertical: 6,
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderBottomWidth: 1,
-    borderColor: '#e0e0e0',
-    backgroundColor: '#fff',
-  },
-  owner: {
-    fontSize: 15,
-    color: '#555',
-    fontWeight: '500',
-    marginBottom: 4,
-  },
-  posteo: {
-    fontSize: 17,
-    color: '#222',
-    marginBottom: 10,
-  },
-  irA: {
-    fontSize: 15,
-    fontWeight: '600',
-    color: '#007bff',
-    marginTop: 4,
-  },
-  center: {
-    flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
+    paddingTop: 40,
   },
+
+  titulo: {
+    fontSize: 30,
+    fontWeight: '700',
+    margin: 10,
+    color: '#333',
+    paddingBottom: 3
+  },
+  
 });

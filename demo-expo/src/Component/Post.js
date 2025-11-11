@@ -13,12 +13,17 @@ export default class Post extends Component {
         };
     }
 
-    tocarLike = (item) => {
-        const correo = auth.currentUser?.email;
-        if (!correo) return;
+    componentDidMount() {
+        if (this.props.data.likes.includes(auth.currentUser.email)) {
+            this.setState({ yaLeGusta: true })
+        }
+    }
+
+    tocarLike(item) {
+        const correo = auth.currentUser.email;
 
         const datos = item.data;
-        const likes = Array.isArray(datos.likes) ? datos.likes : [];
+        const likes = datos.likes;
         const yaLeGusta = likes.includes(correo);
 
         console.log('Like clickeado. Ya le gusta?', yaLeGusta);
@@ -36,7 +41,11 @@ export default class Post extends Component {
             .update({
                 likes: firebase.firestore.FieldValue.arrayUnion(correo),
             })
-            .then(() => console.log('Likeado'))
+            .then(() => {
+                console.log('Likeado')
+                this.setState({ yaLeGusta: true })
+            })
+
             .catch((error) => console.log('Error al dar like:', error));
     }
 
@@ -46,7 +55,10 @@ export default class Post extends Component {
             .update({
                 likes: firebase.firestore.FieldValue.arrayRemove(correo),
             })
-            .then(() => console.log('Dislikeado'))
+            .then(() => {
+                console.log('Dislikeado')
+                this.setState({ yaLeGusta: false })
+            })
             .catch((error) => console.log('Error al quitar like:', error));
     }
 
@@ -58,11 +70,11 @@ export default class Post extends Component {
     render() {
         return (
             <View style={styles.datosRecuperados}>
-                
-                <Text style={styles.owner}>@{this.props.data.owner}</Text>
+
+                <Text style={styles.owner}>{this.props.data.owner}</Text>
                 <Text style={styles.posteo}>{this.props.data.posteo}</Text>
 
-                <Pressable onPress={() => this.tocarLike({id: this.props.id, data: this.props.data})}>
+                <Pressable onPress={() => this.tocarLike({ id: this.props.id, data: this.props.data })}>
                     <Text style={styles.irA}>
                         {this.state.yaLeGusta ? 'Quitar me gusta' : 'Me gusta'} ({this.props.data.likes.length || 0})
                     </Text>
@@ -77,12 +89,9 @@ export default class Post extends Component {
 }
 
 const styles = StyleSheet.create({
-    lista: {
-        paddingBottom: 24,
-    },
     datosRecuperados: {
         flex: 1,
-        width: '50%',
+        width: '100%',
         marginVertical: 6,
         paddingVertical: 12,
         paddingHorizontal: 16,
@@ -107,10 +116,5 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         color: '#ED8E63',
         marginTop: 6,
-    },
-    center: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
     },
 });

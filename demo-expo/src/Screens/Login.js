@@ -47,7 +47,8 @@ export default class Login extends Component {
   render() {
 
     return (
-      <View>
+      <View style={styles.contenedor}>
+        <Text style = {styles.titulo}>Logueate</Text>
         <TextInput 
         style = {styles.input}
         placeholder = 'email'
@@ -64,13 +65,14 @@ export default class Login extends Component {
         <Pressable
          style = {styles.boton} 
          onPress = {() => this.onSubmit(this.state.email,this.state.password)}>
-         <Text> Login </Text></Pressable>
+         <Text style={styles.irA}> Login </Text></Pressable>
         {this.state.error !== '' ? <Text>{this.state.error}</Text> : undefined }
         
         <Pressable 
         style = {styles.boton} 
         onPress ={()=> this.props.navigation.navigate('Register')}>
-        <Text>No tenes cuenta, registrate.</Text></Pressable>
+        <Text style={styles.irA}>No tenes cuenta, registrate.</Text>
+        </Pressable>
       </View>
     )
   }
@@ -79,48 +81,45 @@ export default class Login extends Component {
 
 
 const styles = StyleSheet.create({
-  container: {
-    width: '92%',
-    maxWidth: 740,
-    alignSelf: 'center',
-    backgroundColor: '#f5f5f5',
-    borderRadius: 12,
-    paddingVertical: 24,
-    paddingHorizontal: 16,
-    marginVertical: 20,
-    alignItems: 'stretch',
+  contenedor: {
+    flex: 1,
+    alignItems: 'center',
+    paddingTop: 40,
   },
-  title: {
-    fontSize: 24,
+  irA: {
+    fontSize: 17,
+    fontWeight: '600',
+    color: '#333',
+  },
+  titulo: {
+    fontSize: 30,
     fontWeight: '700',
-    marginBottom: 20,
-    textAlign: 'center',
-    color: '#1E1E1E',
+    margin: 10,
+    color: '#333',
+    paddingBottom: 3
   },
   boton: {
-    backgroundColor: '#1E5AA7',
-    borderRadius: 8,
-    paddingVertical: 12,
-    paddingHorizontal: 10,
+    backgroundColor: '#ef9f7a6e',
+    width: '20%',
+    borderWidth: 1,
     alignItems: 'center',
-    marginTop: 12,
+    marginTop: 16, 
+    backgroundColor: '#f0dfd7ff', 
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingHorizontal: 24,
+    borderRadius: 20,  
+    marginTop: 24
   },
-  field: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    backgroundColor: '#fff',
-    padding: 12,
-    marginVertical: 10,
-    fontSize: 16,
-  },
+  
   input: {
+    width: '20%',
     borderWidth: 1,
-    borderColor: '#ccc',
     borderRadius: 8,
     backgroundColor: '#fff',
     padding: 12,
-    marginVertical: 10,
+    marginTop: 10,
+    marginBottom: 10,
     fontSize: 16,
   },
 })

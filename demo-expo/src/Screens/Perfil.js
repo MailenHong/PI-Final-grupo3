@@ -39,7 +39,6 @@ export default class Perfil extends Component {
               data: doc.data()
             })
           })
-          posteos.sort((a, b) => b.data.createdAt - a.data.createdAt)
           console.log(posteos)
           this.setState({
             misPosteos: posteos,
@@ -82,12 +81,9 @@ export default class Perfil extends Component {
             data={this.state.misPosteos}
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => (
-              // <View><Text> {item.data?.texto || JSON.stringify(item.data)}</Text> </View>
               <Post data={item.data} id={item.id} navigation={this.props.navigation} />
             )}
           >
-
-
           </FlatList>
         </View>
     )
@@ -103,22 +99,34 @@ const styles = StyleSheet.create({
   irA: {
     fontSize: 17,
     fontWeight: '600',
+    color: '#333',
   },
-  loading: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-  info: { marginTop: 6, alignItems: 'center' },
+  loading: { 
+    flex: 1, 
+    alignItems: 'center', 
+    justifyContent: 'center' 
+  },
+  info: { 
+    marginTop: 6,
+    alignItems: 'center' 
+  },
   infoEmail: {
     fontSize: 16,
     color: '#6A6767',
     marginBottom: 2, 
   },
-  infoValue: { fontSize: 16, fontWeight: '500' },
-
+  infoValue: { 
+    fontSize: 16, 
+    fontWeight: '500' 
+  },
   buttonText: {
-    width: '30%',
+    width: '17%',
+    borderWidth: 1,
     alignItems: 'center',
     marginTop: 16, 
     backgroundColor: '#f0dfd7ff', 
-    paddingVertical: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
     paddingHorizontal: 24,
     borderRadius: 20,  
     marginTop: 24
@@ -127,21 +135,15 @@ const styles = StyleSheet.create({
   fontSize: 20,
   fontWeight: '700',
   color: '#333',
-  marginTop: 40, // 🔹 espacio extra debajo del botón
-  marginBottom: 20,
-  textAlign: 'center', // centrado como "Mi perfil"
+  marginTop: 30,
+  marginBottom: 10,
+  textAlign: 'center',
 },
-
-  listContent: { paddingVertical: 8 },
-  postCard: {
-    width: '90%',
-    alignSelf: 'center', padding: 16, borderRadius: 20, borderWidth: 1, borderColor: '#eee', marginBottom: 10
-  },
-  postText: { fontSize: 15, lineHeight: 20 },
-  emptyList: { textAlign: 'center', color: '#999', marginTop: 20 },
+  
   titulo: {
     fontSize: 30,
     fontWeight: '700',
     margin: 10,
+    color: '#333',
   },
 });

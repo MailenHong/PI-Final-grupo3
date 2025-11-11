@@ -28,7 +28,6 @@ export default class Comentario extends Component {
     })
       .then(() => {
         this.setState({ comentario: '' });
-        // this.props.navigation.navigate('Comentario', { postId });
       })
       .catch(err => console.log(err));
 
@@ -37,7 +36,7 @@ export default class Comentario extends Component {
   }
 
   componentDidMount() {
-    const { postId } = this.props.route.params;
+    const postId = this.props.route.params.postId;
 
     console.log('post id desde componentDidMount', postId)
 
@@ -59,34 +58,30 @@ export default class Comentario extends Component {
     return (
       <View style={styles.contenedor}>
         <Text style={styles.titulo}> Comentarios </Text>
-        {postRecuperado ? (
+        {postRecuperado ? 
           <View style={styles.datosRecuperados}>
-            <Text style={{ fontSize: 17, color: 'gray' }}>
-              {postRecuperado.data.owner} posteó hoy a las ...
+            <Text style={styles.dataUsuario}>
+            {postRecuperado.data.owner} posteó hoy a las {postRecuperado.data.createdAt}
             </Text>
-            <Text style={{ fontSize: 18 }}>{postRecuperado.data.posteo}</Text>
-          </View>
-        ) : (
+            <Text style={styles.dataPosteo}>{postRecuperado.data.posteo}</Text>
+          </View> 
+         : 
           <Text>Cargando post...</Text>
-        )}
+        }
 
-        {postRecuperado ? (
+        {postRecuperado ? 
           <FlatList
             data={postRecuperado.data.comentarios}
             keyExtractor={(item) => item.createdAt + item.owner}
             renderItem={({ item }) => (
               <View style={styles.datosRecuperados}>
-                <Text style={{ fontSize: 17, color: 'gray' }}>{item.owner}</Text>
-                <Text style={{ fontSize: 18 }}>{item.comentario}</Text>
+                <Text style={styles.dataUsuario}>{item.owner}</Text>
+                <Text style={styles.dataPosteo}>{item.comentario}</Text>
               </View>
             )} />
-        ) : (
+         : 
           <Text>Cargando post...</Text>
-        )}
-
-
-
-
+        }
         <TextInput
           style={styles.input}
           keyboardType='default'
@@ -102,34 +97,43 @@ export default class Comentario extends Component {
 }
 
 const styles = StyleSheet.create({
+  dataUsuario: {
+    fontSize: 17, 
+    color: 'gray' 
+  },
+  dataPosteo: {
+    fontSize: 18,
+  },
   titulo: {
     fontSize: 30,
-    fontWeight: '600',
+    fontWeight: '700',
     margin: 10,
+    color: '#333',
+    paddingBottom: 3
   },
   input: {
     borderWidth: 1,
-    marginVertical: 10,
-    paddingVertical: 12,
+    paddingTop: 12,
+    paddingBottom: 12,
     paddingHorizontal: 14,
     fontSize: 16,
     borderRadius: 10,
-    width: '50%',
-    backgroundColor: '#ece2e2ff',
-
+    width: '35%',
+    backgroundColor: '#a9b8b24d'   
   },
   contenedor: {
     flex: 1,
     alignItems: 'center',
-    paddingTop: 24,
+    paddingTop: 40,
   },
   irA: {
     fontSize: 20,
     fontWeight: '600',
     margin: 10,
+    color: '#333',
+    paddingBottom: 300
   },
   datosRecuperados: {
     margin: 10,
-    fontSize: 16,
   }
 })

@@ -13,16 +13,19 @@ export default class NuevoPost extends Component {
     }
 
     submit() {
+        let fecha = new Date()
         return db.collection('posts').add({
             owner: auth.currentUser.email,
-            createdAt: new Date(),
+            createdAt: fecha.toString(),
             posteo: this.state.posteo,
-            likes: this.state.likes, 
+            likes: this.state.likes,
             comentarios: []
         })
 
-            .then((item) => { this.setState({ posteo: '' }), this.props.navigation.navigate('Comentario', { postId: item.id });
-        })
+            .then((item) => {
+                this.setState({ posteo: '' })
+                this.props.navigation.navigate('Comentario', { postId: item.id });
+            })
 
             .catch(err => console.log(err));
     }
@@ -48,30 +51,32 @@ export default class NuevoPost extends Component {
 const styles = StyleSheet.create({
     input: {
         borderWidth: 1,
-        marginVertical: 10,
-        paddingVertical: 12,
+        marginTop: 10,
+        marginBottom: 10,
+        paddingTop: 12,
+        paddingBottom: 12,
         paddingHorizontal: 14,
         fontSize: 16,
-        borderRadius: 10,
-        width: '40%',
-        backgroundColor: '#a9b8b24d',
-
-    },
+        borderRadius: 20,
+        width: '35%',
+        backgroundColor: '#a9b8b24d'    },
     titulo: {
         fontSize: 30,
-        fontWeight: '600',
+        fontWeight: '700',
         margin: 10,
+        color: '#333',
     },
     irA: {
         fontSize: 20,
         fontWeight: '600',
         margin: 10,
         alignItems: 'flex-start',
+        color: '#333',
     },
     contenedor: {
         flex: 1,
         alignItems: 'center',
-        paddingTop: 24,
+        paddingTop: 40,
     }
 
 })

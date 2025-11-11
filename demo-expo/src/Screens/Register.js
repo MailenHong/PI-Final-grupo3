@@ -42,7 +42,8 @@ export default class Register extends Component {
   render() {
 
     return (
-      <View>
+      <View style={styles.contenedor}>
+        <Text style = {styles.titulo} >Registro</Text>
         <TextInput 
         style = {styles.input}
         placeholder = 'email' onChangeText = {(texto)=> this.setState({email: texto})} value= {this.state.email}></TextInput>
@@ -54,11 +55,11 @@ export default class Register extends Component {
         placeholder = 'usuario' onChangeText = {(texto)=> this.setState({username: texto})} value= {this.state.username}></TextInput>
         <Pressable 
         style = {styles.boton}
-        onPress = {() => this.onSubmit(this.state.email,this.state.password, this.state.username)}> <Text> Register </Text></Pressable>
+        onPress = {() => this.onSubmit(this.state.email,this.state.password, this.state.username)}> <Text style={styles.irA}> Register </Text></Pressable>
         {this.state.error !== '' ? <Text>{this.state.error}</Text> : undefined }
         <Pressable
         style = {styles.boton} 
-        onPress ={()=> this.props.navigation.navigate('Login')}><Text> Inciar sesión </Text></Pressable>
+        onPress ={()=> this.props.navigation.navigate('Login')}><Text style={styles.irA}> Inciar sesión </Text></Pressable>
       </View>
     )
   }
@@ -66,48 +67,45 @@ export default class Register extends Component {
 
 
     const styles = StyleSheet.create({
-      container: {
-        width: '92%',
-        maxWidth: 740,
-        alignSelf: 'center',
-        backgroundColor: '#f5f5f5',
-        borderRadius: 12,
-        paddingVertical: 24,
-        paddingHorizontal: 16,
-        marginVertical: 20,
-        alignItems: 'stretch',
-      },
-      title: {
-        fontSize: 24,
-        fontWeight: '700',
-        marginBottom: 20,
-        textAlign: 'center',
-        color: '#1E1E1E',
-      },
-      boton: {
-        backgroundColor: '#1E5AA7',
-        borderRadius: 8,
-        paddingVertical: 12,
-        paddingHorizontal: 10,
-        alignItems: 'center',
-        marginTop: 12,
-      },
-      field: {
-        borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 8,
-        backgroundColor: '#fff',
-        padding: 12,
-        marginVertical: 10,
-        fontSize: 16,
-      },
-      input: {
-        borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 8,
-        backgroundColor: '#fff',
-        padding: 12,
-        marginVertical: 10,
-        fontSize: 16,
-      },
+          contenedor: {
+    flex: 1,
+    alignItems: 'center',
+    paddingTop: 40,
+  },
+  irA: {
+    fontSize: 17,
+    fontWeight: '600',
+    color: '#333',
+  },
+  titulo: {
+    fontSize: 30,
+    fontWeight: '700',
+    margin: 10,
+    color: '#333',
+    paddingBottom: 3
+  },
+  boton: {
+    backgroundColor: '#ef9f7a6e',
+    width: '20%',
+    borderWidth: 1,
+    alignItems: 'center',
+    marginTop: 16, 
+    backgroundColor: '#f0dfd7ff', 
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingHorizontal: 24,
+    borderRadius: 20,  
+    marginTop: 24
+  },
+  
+  input: {
+    width: '20%',
+    borderWidth: 1,
+    borderRadius: 8,
+    backgroundColor: '#fff',
+    padding: 12,
+    marginTop: 10,
+    marginBottom: 10,
+    fontSize: 16,
+  },
     })
